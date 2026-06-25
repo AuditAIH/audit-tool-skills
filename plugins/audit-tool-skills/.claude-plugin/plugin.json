@@ -1,0 +1,9 @@
+{
+  "name": "audit-tool-skills",
+  "description": "内审与工具技能合集：audit 做代码内审，tools 提供常用工具能力",
+  "version": "0.1.0",
+  "author": {
+    "name": "TODO: 你的名字"
+  },
+  "license": "MIT"
+}

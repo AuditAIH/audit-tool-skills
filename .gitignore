@@ -1,0 +1,9 @@
+# 编辑器/系统
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# 本地缓存
+.claude/local/
