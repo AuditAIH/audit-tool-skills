@@ -1,0 +1,4 @@
+# 数据脱敏脚本依赖（mask.py 仅用标准库，无第三方依赖）
+# 此处预留，便于后续扩展 NER 模型等能力时添加，例如：
+# presidio-analyzer
+# spacy

@@ -1,0 +1,11 @@
+# 文档解析脚本依赖（按实际用到的文档类型按需安装）
+# PDF
+pymupdf
+pdfplumber
+# Word
+python-docx
+# Excel
+openpyxl
+# OCR（还需系统安装 Tesseract 引擎；中文需 chi_sim 语言包）
+pytesseract
+Pillow

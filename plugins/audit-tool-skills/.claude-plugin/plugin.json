@@ -1,9 +1,11 @@
 {
   "name": "audit-tool-skills",
-  "description": "内审与工具技能合集：audit 做代码内审，tools 提供常用工具能力",
+  "description": "审计技能合集：audit_tools（数据脱敏、文档解析等工具）+ internal-audit（内审程序调度）",
   "version": "0.1.0",
   "author": {
-    "name": "TODO: 你的名字"
+    "name": "AuditAIH"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/AuditAIH/audit-tool-skills",
+  "repository": "https://github.com/AuditAIH/audit-tool-skills"
 }
