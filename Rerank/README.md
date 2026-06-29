@@ -5,7 +5,7 @@
 ```
 # 下载脚本到本地文件 startup_llama.cpp.sh
 # 如需代理请在github的http前面追加https://gh-proxy.org/https://raw.git...
-wget -q "https://raw.githubusercontent.com/AuditAIH/audit-tool-skills/main/Rerank/startup_llama.cpp.sh" -O startup_llama.cpp.sh
+wget "https://raw.githubusercontent.com/AuditAIH/audit-tool-skills/main/Rerank/startup_llama.cpp.sh" -O startup_llama.cpp.sh
 # 运行脚本
 bash startup_llama.cpp.sh
 ```
