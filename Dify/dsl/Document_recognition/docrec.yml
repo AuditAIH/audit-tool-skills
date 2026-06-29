@@ -1,0 +1,234 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 文本识别
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 5fcfba84-ac44-4244-a1c5-a6b772778944
+    name: f
+    selector:
+    - conversation
+    - f
+    value: []
+    value_type: array[object]
+  environment_variables:
+  - description: ''
+    id: 6530d466-c7ce-422d-b270-c72437c57481
+    name: voicefile
+    selector:
+    - env
+    - voicefile
+    value: '".mp3,.m4a.wav"'
+    value_type: string
+  - description: ''
+    id: 776cc86b-75c1-4919-b89a-cc132bce31cd
+    name: file
+    selector:
+    - env
+    - file
+    value: '''".pdf,.png,.jpg,.jpeg"'''
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      - audio
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 10
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 1
+    opening_statement: "# 本工具的功能: <span style=\"color:blue;\">[参考链接——飞书文档](https://docs.feishu.cn)</span>\n\
+      \n## 1. 将PDF、图片格式文件，转化成表格或纯文本\n### 用法1：直接上传文件，发送即可快速响应为文本\n### 用法2：上传文件，并输入提示词【表格返回】，即可解析为表格格式\n\
+      （用鼠标选中并复制到Excel中即可获得格式化表格）\n\n## 2. 将音频文件转化为纯文本\n### 用法1：直接上传，获得快速解析精准文本结果\n\
+      ### 用法2：上传文件，并输入提示词【区分讲话人】\n\n## 3. 上传office文件并解密，6位数纯数字密码2分钟内破解\n### 用法：直接上传Excel、Word、PPT文件，即可破解密码\n\
+      （仅限本人已获取授权的设备或文档才能解密）\n\n ⚠️ <span style=\"color:orange;\">特别提示</span>：Windows电脑桌面、压缩包文件、PDF文件等任意密码（联系系统管理员）忘记均可找回"
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1751015346605-source-1751015375021-target
+      selected: false
+      source: '1751015346605'
+      sourceHandle: source
+      target: '1751015375021'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1750384808192-source-1751015346605-target
+      source: '1750384808192'
+      sourceHandle: source
+      target: '1751015346605'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 73
+      id: '1750384808192'
+      position:
+        x: 483.74730168469995
+        y: 493.83296858957357
+      positionAbsolute:
+        x: 483.74730168469995
+        y: 493.83296858957357
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - file:
+            - sys
+            - files
+            id: key-value-43
+            key: file
+            type: file
+            value: ''
+          - id: key-value-411
+            key: text
+            type: text
+            value: '{{#sys.query#}}'
+          type: form-data
+        desc: ''
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 输出文本
+        type: http-request
+        url: http://aid:9006/api/process
+        variables: []
+      height: 92
+      id: '1751015346605'
+      position:
+        x: 848.470190645113
+        y: 472.0885922569277
+      positionAbsolute:
+        x: 848.470190645113
+        y: 472.0885922569277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1751015346605.body#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '1751015375021'
+      position:
+        x: 1200.758262774867
+        y: 495.7999552114928
+      positionAbsolute:
+        x: 1200.758262774867
+        y: 495.7999552114928
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        author: Aid
+        desc: ''
+        height: 172
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"创意：","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"开发的API小工具，如图片识别，录音转文本集成到Dify，方便统一管理","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"根据用户输入的文档类型转换，默认无提示词提供基本功能，附带其他提示词自动切换为高级功能","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 311
+      height: 172
+      id: '1769810055330'
+      position:
+        x: 498.75826277486675
+        y: 280.7999552114927
+      positionAbsolute:
+        x: 498.75826277486675
+        y: 280.7999552114927
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 311
+    viewport:
+      x: -329.7582627748666
+      y: -105.7999552114926
+      zoom: 0.9999999999999997
+  rag_pipeline_variables: []

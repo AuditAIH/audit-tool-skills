@@ -1,0 +1,1152 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 在线生图
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 10
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1760153070859-source-1760156118017-target
+      selected: false
+      source: '1760153070859'
+      sourceHandle: source
+      target: '1760156118017'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: loop
+        targetType: http-request
+      id: 1760158075902-source-17601594642120-target
+      selected: false
+      source: '1760158075902'
+      sourceHandle: source
+      target: '17601594642120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: loop
+      id: 1760156118017-source-1760158075902-target
+      selected: false
+      source: '1760156118017'
+      sourceHandle: source
+      target: '1760158075902'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 17601594642120-source-1760161800214-target
+      selected: false
+      source: '17601594642120'
+      sourceHandle: source
+      target: '1760161800214'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1760161800214-source-1760162131420-target
+      selected: false
+      source: '1760161800214'
+      sourceHandle: source
+      target: '1760162131420'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1760162131420-source-answer-target
+      selected: false
+      source: '1760162131420'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1760152575086-source-1760163862864-target
+      selected: false
+      source: '1760152575086'
+      sourceHandle: source
+      target: '1760163862864'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1760163862864-true-1760153070859-target
+      selected: false
+      source: '1760163862864'
+      sourceHandle: 'true'
+      target: '1760153070859'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1760163862864-false-1760164116995-target
+      selected: false
+      source: '1760163862864'
+      sourceHandle: 'false'
+      target: '1760164116995'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1760164116995-source-1760164970184-target
+      selected: false
+      source: '1760164116995'
+      sourceHandle: source
+      target: '1760164970184'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1760164970184-source-1760167259146-target
+      selected: false
+      source: '1760164970184'
+      sourceHandle: source
+      target: '1760167259146'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1760167259146-source-1760167116498-target
+      selected: false
+      source: '1760167259146'
+      sourceHandle: source
+      target: '1760167116498'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: http-request
+      id: 1760167116498-source-1760167786060-target
+      selected: false
+      source: '1760167116498'
+      sourceHandle: source
+      target: '1760167786060'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1760167786060-source-17601692915460-target
+      selected: false
+      source: '1760167786060'
+      sourceHandle: source
+      target: '17601692915460'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 17601692915460-source-17601694644540-target
+      selected: false
+      source: '17601692915460'
+      sourceHandle: source
+      target: '17601694644540'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 17601694644540-source-1760163892736-target
+      selected: false
+      source: '17601694644540'
+      sourceHandle: source
+      target: '1760163892736'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1760158075902'
+        sourceType: loop-start
+        targetType: code
+      id: 1760158075902start-source-1760158631678-target
+      source: 1760158075902start
+      sourceHandle: source
+      target: '1760158631678'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1760158075902'
+        sourceType: code
+        targetType: http-request
+      id: 1760158631678-source-1760158313746-target
+      source: '1760158631678'
+      sourceHandle: source
+      target: '1760158313746'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1760158075902'
+        sourceType: http-request
+        targetType: assigner
+      id: 1760158313746-source-1760341349479-target
+      source: '1760158313746'
+      sourceHandle: source
+      target: '1760341349479'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    nodes:
+    - data:
+        selected: true
+        title: 开始
+        type: start
+        variables:
+        - default: qwen-image-plus
+          hide: true
+          hint: ''
+          label: 阿里百炼文生图模型名称
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: text2image_model
+        - default: sk-3b
+          hide: true
+          hint: ''
+          label: 阿里百炼API
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: apikey
+        - default: qwen-image-edit
+          hide: true
+          hint: ''
+          label: 图生图模型
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: image2image
+      height: 161
+      id: '1760152575086'
+      position:
+        x: -113.5039935057182
+        y: 421.7329064815061
+      positionAbsolute:
+        x: -113.5039935057182
+        y: 421.7329064815061
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: "{\n    \"model\": \"wan2.5-t2i-preview\",\n    \"input\": {\n\
+              \        \"prompt\": \"{{#sys.query#}}\"\n    },\n    \"parameters\"\
+              : {\n        \"size\": \"1328*1328\",\n        \"n\": 1,\n        \"\
+              prompt_extend\": true,\n        \"watermark\": true\n    }\n}"
+          type: raw-text
+        headers: 'X-DashScope-Async:enable
+
+          Authorization:Bearer {{#1760152575086.apikey#}}
+
+          Content-Type:application/json'
+        method: POST
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 请求文生图
+        type: http-request
+        url: https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis
+        variables: []
+      height: 153
+      id: '1760153070859'
+      position:
+        x: 181.4546475575828
+        y: 206.77595014406864
+      positionAbsolute:
+        x: 181.4546475575828
+        y: 206.77595014406864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1760161800214.actual_prompt#}}
+
+
+          {{#1760162131420.files#}}'
+        selected: false
+        title: 生成图片
+        type: answer
+        variables: []
+      height: 121
+      id: answer
+      position:
+        x: 1435.7073474977137
+        y: 537.9589541081956
+      positionAbsolute:
+        x: 1435.7073474977137
+        y: 537.9589541081956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "def main(arg1: str):\n    # 解析arg1中的JSON字符串\n    data = json.loads(arg1)\n\
+          \    # 提取output中的task_id\n    task_id = data.get(\"output\", {}).get(\"\
+          task_id\")\n    return {\n        \"result\": task_id\n    }"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 提取任务ID
+        type: code
+        variables:
+        - value_selector:
+          - '1760153070859'
+          - body
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '1760156118017'
+      position:
+        x: 181.4546475575828
+        y: 440.6449398716861
+      positionAbsolute:
+        x: 181.4546475575828
+        y: 440.6449398716861
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        break_conditions:
+        - comparison_operator: contains
+          id: f4fb5f45-6124-42df-a4df-80c21e190cdf
+          value: '"task_status":"SUCCEEDED"'
+          varType: string
+          variable_selector:
+          - '1760158075902'
+          - body
+        error_handle_mode: terminated
+        height: 241
+        logical_operator: and
+        loop_count: 30
+        loop_variables:
+        - id: 9d56ddf9-ec32-4b21-9172-730b7f1d7ee9
+          label: body
+          value: nobody
+          value_type: constant
+          var_type: string
+        selected: false
+        start_node_id: 1760158075902start
+        title: 循环
+        type: loop
+        width: 1065.551553093875
+      height: 241
+      id: '1760158075902'
+      position:
+        x: 511.89988991258554
+        y: 194.9901094307318
+      positionAbsolute:
+        x: 511.89988991258554
+        y: 194.9901094307318
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1066
+      zIndex: 1
+    - data:
+        desc: ''
+        isInLoop: true
+        selected: false
+        title: ''
+        type: loop-start
+      draggable: false
+      height: 48
+      id: 1760158075902start
+      parentId: '1760158075902'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 535.8998899125855
+        y: 262.99010943073176
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-loop-start
+      width: 44
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: ''
+          type: none
+        headers: Authorization:Bearer {{#1760152575086.apikey#}}
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1760158075902'
+        method: GET
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 查询任务
+        type: http-request
+        url: https://dashscope.aliyuncs.com/api/v1/tasks/{{#1760156118017.result#}}
+        variables: []
+      height: 156
+      id: '1760158313746'
+      parentId: '1760158075902'
+      position:
+        x: 442.79688728439055
+        y: 65
+      positionAbsolute:
+        x: 954.6967771969761
+        y: 259.99010943073176
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import time\n\ndef main():\n    # 等待10秒，使用标准库time，无额外依赖\n    time.sleep(10)\n\
+          \    return {\n        \"result\": \"等待10秒完成\"\n    }"
+        code_language: python3
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1760158075902'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 等待10S
+        type: code
+        variables: []
+      height: 52
+      id: '1760158631678'
+      parentId: '1760158075902'
+      position:
+        x: 126.66428157194389
+        y: 110.9642316981431
+      positionAbsolute:
+        x: 638.5641714845294
+        y: 305.9543411288749
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: ''
+          type: none
+        headers: Authorization:Bearer {{#1760152575086.apikey#}}
+        isInIteration: false
+        isInLoop: true
+        loop_id: '1760158075902'
+        method: GET
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 返回结果
+        type: http-request
+        url: https://dashscope.aliyuncs.com/api/v1/tasks/{{#1760156118017.result#}}
+        variables: []
+      height: 156
+      id: '17601594642120'
+      position:
+        x: 518.9923966038347
+        y: 497.71478161907646
+      positionAbsolute:
+        x: 518.9923966038347
+        y: 497.71478161907646
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "import json\n\ndef main(json_str: str):\n    try:\n        # 解析JSON字符串\n\
+          \        data = json.loads(json_str)\n        # 提取results列表中的第一个元素\n   \
+          \     result_info = data.get(\"output\", {}).get(\"results\", [])[0] if\
+          \ data.get(\"output\", {}).get(\"results\") else {}\n        # 获取补充后的提示词和URL\n\
+          \        actual_prompt = result_info.get(\"actual_prompt\", \"\")  # 修正缩进，与同代码块保持一致\n\
+          \        url = result_info.get(\"url\", \"\")\n        return {\n      \
+          \      \"actual_prompt\": actual_prompt,\n            \"url\": url\n   \
+          \     }\n    except (json.JSONDecodeError, IndexError, KeyError) as e:\n\
+          \        return {\n            \"result\": f\"解析错误: {str(e)}\",\n      \
+          \      \"result1\": \"\"\n        }"
+        code_language: python3
+        outputs:
+          actual_prompt:
+            children: null
+            type: string
+          url:
+            children: null
+            type: string
+        selected: false
+        title: 提取下载链接
+        type: code
+        variables:
+        - value_selector:
+          - '17601594642120'
+          - body
+          value_type: string
+          variable: json_str
+      height: 52
+      id: '1760161800214'
+      position:
+        x: 835.7073474977136
+        y: 537.9589541081956
+      positionAbsolute:
+        x: 835.7073474977136
+        y: 537.9589541081956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 下载图片
+        type: http-request
+        url: '{{#1760161800214.url#}}'
+        variables: []
+      height: 124
+      id: '1760162131420'
+      position:
+        x: 1142.6717520040827
+        y: 537.9589541081956
+      positionAbsolute:
+        x: 1142.6717520040827
+        y: 537.9589541081956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 6465f8ae-bf35-40c2-bc56-b665aacd2f4a
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 124
+      id: '1760163862864'
+      position:
+        x: -113.5039935057182
+        y: 582.5798054457158
+      positionAbsolute:
+        x: -113.5039935057182
+        y: 582.5798054457158
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#17601694644540.files#}}'
+        selected: false
+        title: 生成结果
+        type: answer
+        variables: []
+      height: 103
+      id: '1760163892736'
+      position:
+        x: 1435.7073474977137
+        y: 951.7123784953938
+      positionAbsolute:
+        x: 1435.7073474977137
+        y: 951.7123784953938
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: ''
+          type: none
+        headers: 'Authorization:Bearer {{#1760152575086.apikey#}}
+
+          Content-Type:application/json'
+        method: GET
+        params: 'action:getPolicy
+
+          model:{{#1760152575086.image2image#}}'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取文件上传凭证
+        type: http-request
+        url: https://dashscope.aliyuncs.com/api/v1/uploads
+        variables: []
+      height: 137
+      id: '1760164116995'
+      position:
+        x: 193.64235544372855
+        y: 783.9302042894403
+      positionAbsolute:
+        x: 193.64235544372855
+        y: 783.9302042894403
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\ndef main(arg1: str):\n    \"\"\"\n    从第一步的响应（无外层body）中提取上传文件必须的凭证字段\n\
+          \    参数：arg1 - 输入的JSON字符串（直接包含data字段，无外层body）\n    返回：字典 - 上传文件必须的凭证字段\n\
+          \    \"\"\"\n    # 1. 解析输入的JSON字符串（容错：处理JSON格式错误）\n    try:\n        input_data\
+          \ = json.loads(arg1)\n    except json.JSONDecodeError as e:\n        raise\
+          \ ValueError(f\"输入的JSON格式错误：{str(e)}\") from e  # 明确错误原因，便于排查\n    \n  \
+          \  # 2. 直接提取data字段（无外层body，input_data即为原body_data）\n    policy_data = input_data.get(\"\
+          data\", {})  # 若data不存在，返回空字典避免报错\n    \n    # 3. 只保留上传文件必须的字段（与upload_file_to_oss函数使用的字段完全对应）\n\
+          \    necessary_fields = {\n        \"oss_access_key_id\": policy_data.get(\"\
+          oss_access_key_id\"),\n        \"signature\": policy_data.get(\"signature\"\
+          ),\n        \"policy\": policy_data.get(\"policy\"),\n        \"x_oss_object_acl\"\
+          : policy_data.get(\"x_oss_object_acl\"),\n        \"x_oss_forbid_overwrite\"\
+          : policy_data.get(\"x_oss_forbid_overwrite\"),\n        \"upload_dir\":\
+          \ policy_data.get(\"upload_dir\"),\n        \"upload_host\": policy_data.get(\"\
+          upload_host\")\n    }\n    \n    # 可选：检查关键字段是否缺失（提前预警，避免后续上传失败）\n    missing_fields\
+          \ = [key for key, value in necessary_fields.items() if value is None]\n\
+          \    if missing_fields:\n        raise Warning(f\"以下必要字段可能缺失：{', '.join(missing_fields)}，可能导致上传失败\"\
+          )\n    \n    return necessary_fields"
+        code_language: python3
+        outputs:
+          oss_access_key_id:
+            children: null
+            type: string
+          policy:
+            children: null
+            type: string
+          signature:
+            children: null
+            type: string
+          upload_dir:
+            children: null
+            type: string
+          upload_host:
+            children: null
+            type: string
+          x_oss_forbid_overwrite:
+            children: null
+            type: string
+          x_oss_object_acl:
+            children: null
+            type: string
+        selected: false
+        title: 获取凭证
+        type: code
+        variables:
+        - value_selector:
+          - '1760164116995'
+          - body
+          value_type: string
+          variable: arg1
+      height: 52
+      id: '1760164970184'
+      position:
+        x: 193.64235544372855
+        y: 992.8623394805098
+      positionAbsolute:
+        x: 193.64235544372855
+        y: 992.8623394805098
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - key: OSSAccessKeyId
+            type: text
+            value: '{{#1760164970184.oss_access_key_id#}}'
+          - key: Signature
+            type: text
+            value: '{{#1760164970184.signature#}}'
+          - key: policy
+            type: text
+            value: '{{#1760164970184.policy#}}'
+          - key: x-oss-object-acl
+            type: text
+            value: '{{#1760164970184.x_oss_object_acl#}}'
+          - key: x-oss-forbid-overwrite
+            type: text
+            value: '{{#1760164970184.x_oss_forbid_overwrite#}}'
+          - key: key
+            type: text
+            value: '{{#1760164970184.upload_dir#}}/{{#1760167259146.result#}}'
+          - key: success_action_status
+            type: text
+            value: '200'
+          - file:
+            - sys
+            - files
+            key: file
+            type: file
+            value: ''
+          type: form-data
+        headers: ''
+        method: POST
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 上传至阿里云
+        type: http-request
+        url: '{{#1760164970184.upload_host#}}'
+        variables: []
+      height: 124
+      id: '1760167116498'
+      position:
+        x: 582.1208431330684
+        y: 922.1136593433259
+      positionAbsolute:
+        x: 582.1208431330684
+        y: 922.1136593433259
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "def main(arg1: list):\n    if arg1:  # 确保列表非空\n        filename = arg1[0].get(\"\
+          filename\")\n    else:\n        filename = None  # 列表为空时的默认值\n    return\
+          \ {\n        \"result\": filename  # 结果为单个字符串，例如\"image.png\"\n    }"
+        code_language: python3
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 获取文件名
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - files
+          value_type: array[file]
+          variable: arg1
+      height: 52
+      id: '1760167259146'
+      position:
+        x: 571.1436301473814
+        y: 767.1556590766161
+      positionAbsolute:
+        x: 571.1436301473814
+        y: 767.1556590766161
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: "{\n    \"model\": \"{{#1760152575086.image2image#}}\",\n    \"\
+              input\": {\n        \"messages\": [\n            {\n               \
+              \ \"role\": \"user\",\n                \"content\": [\n            \
+              \        {\n                        \"image\": \"oss://{{#1760164970184.upload_dir#}}/{{#1760167259146.result#}}\"\
+              \n                    },\n                    {\n                  \
+              \      \"text\": \"{{#sys.query#}}\"\n                    }\n      \
+              \          ]\n            }\n        ]\n    },\n    \"parameters\":\
+              \ {\n        \"negative_prompt\": \" \",\n        \"watermark\": false\n\
+              \    }\n}"
+          type: raw-text
+        headers: 'Content-Type:application/json
+
+          Authorization:Bearer {{#1760152575086.apikey#}}
+
+          X-DashScope-OssResourceResolve:enable'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 编辑图片
+        type: http-request
+        url: https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation
+        variables: []
+      height: 140
+      id: '1760167786060'
+      position:
+        x: 998.1816245107111
+        y: 767.1556590766161
+      positionAbsolute:
+        x: 998.1816245107111
+        y: 767.1556590766161
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\ndef main(json_str: str):\n    try:\n        # 解析JSON字符串\n\
+          \        data = json.loads(json_str)\n        # 逐层提取图片URL路径：output -> choices[0]\
+          \ -> message -> content[0] -> image\n        url = data.get(\"output\",\
+          \ {}) \\\n                  .get(\"choices\", [{}])[0] \\\n            \
+          \      .get(\"message\", {}) \\\n                  .get(\"content\", [{}])[0]\
+          \ \\\n                  .get(\"image\", \"\")\n        return {\"url\":\
+          \ url}\n    except (json.JSONDecodeError, IndexError) as e:\n        return\
+          \ {\"url\": f\"解析错误: {str(e)}\"}"
+        code_language: python3
+        outputs:
+          url:
+            children: null
+            type: string
+        selected: false
+        title: 提取下载链接
+        type: code
+        variables:
+        - value_selector:
+          - '1760167786060'
+          - body
+          value_type: string
+          variable: json_str
+      height: 52
+      id: '17601692915460'
+      position:
+        x: 1004.1037811667861
+        y: 984.3280257465631
+      positionAbsolute:
+        x: 1004.1037811667861
+        y: 984.3280257465631
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 下载图片
+        type: http-request
+        url: '{{#17601692915460.url#}}'
+        variables: []
+      height: 124
+      id: '17601694644540'
+      position:
+        x: 1435.7073474977137
+        y: 767.1556590766161
+      positionAbsolute:
+        x: 1435.7073474977137
+        y: 767.1556590766161
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        isInIteration: false
+        isInLoop: true
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1760158313746'
+          - body
+          variable_selector:
+          - '1760158075902'
+          - body
+          write_mode: over-write
+        loop_id: '1760158075902'
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1760341349479'
+      parentId: '1760158075902'
+      position:
+        x: 803.551553093875
+        y: 107.30919779483068
+      positionAbsolute:
+        x: 1315.4514430064605
+        y: 302.2993072255625
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        author: Aid
+        desc: ''
+        height: 213
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"目前针对阿里百炼API设计，需要填入你的APIkey和模型名称，如文生图模型，仅提问：","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0},{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"wan2.5-t2i-preview","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0},{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"qwen-image-plus","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0},{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"图生图模型，自动传入一个图片和问题即可修图","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0},{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"qwen-image-edit","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":null,"format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 385
+      height: 213
+      id: '1760341705976'
+      position:
+        x: -183.29265250228343
+        y: 206.77595014406864
+      positionAbsolute:
+        x: -183.29265250228343
+        y: 206.77595014406864
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 385
+    viewport:
+      x: 156.66550946623966
+      y: 16.517047108602696
+      zoom: 0.5305007982786393
+  rag_pipeline_variables: []

@@ -1,0 +1,644 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 知识库
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 10
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: 请用关键词搜索审计报告和公司知识库内容
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1749544467426-false-1749544519432-target
+      selected: false
+      source: '1749544467426'
+      sourceHandle: 'false'
+      target: '1749544519432'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1749641661862-false-1749642129559-target
+      selected: false
+      source: '1749641661862'
+      sourceHandle: 'false'
+      target: '1749642129559'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 1755230410480-source-1755508151583-target
+      source: '1755230410480'
+      sourceHandle: source
+      target: '1755508151583'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1755508151583-source-1755508146694-target
+      source: '1755508151583'
+      sourceHandle: source
+      target: '1755508146694'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1749544467426-true-1755230410480-target
+      source: '1749544467426'
+      sourceHandle: 'true'
+      target: '1755230410480'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1749516575682-source-1749544467426-target
+      source: '1749516575682'
+      sourceHandle: source
+      target: '1749544467426'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1749641661862-true-17555101395940-target
+      source: '1749641661862'
+      sourceHandle: 'true'
+      target: '17555101395940'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1749544467426-4aefc05a-439d-404c-a248-a8b8a4fb07d7-17555101731930-target
+      source: '1749544467426'
+      sourceHandle: 4aefc05a-439d-404c-a248-a8b8a4fb07d7
+      target: '17555101731930'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 17555101731930-source-1755508151583-target
+      source: '17555101731930'
+      sourceHandle: source
+      target: '1755508151583'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 17555101395940-source-1755508151583-target
+      source: '17555101395940'
+      sourceHandle: source
+      target: '1755508151583'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1749638573534-source-1749641661862-target
+      source: '1749638573534'
+      sourceHandle: source
+      target: '1749641661862'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1749544467426-74659720-5597-4ff5-81b5-130f7c683128-1749638573534-target
+      source: '1749544467426'
+      sourceHandle: 74659720-5597-4ff5-81b5-130f7c683128
+      target: '1749638573534'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - default: '3'
+          label: 最大文档返回数量,默认3个
+          max_length: 48
+          options: []
+          required: false
+          type: number
+          variable: max_results
+        - default: 审计报告
+          label: 选择知识库范围
+          max_length: 48
+          options:
+          - 审计报告
+          - 公司制度
+          - 投诉调查
+          - 其他暂未开发
+          required: true
+          type: select
+          variable: zks
+      height: 135
+      id: '1749516575682'
+      position:
+        x: -199.58418027138123
+        y: -46.80358681423982
+      positionAbsolute:
+        x: -199.58418027138123
+        y: -46.80358681423982
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 3f84681b-2870-4775-8f0f-f700028c846d
+            value: 审计报告
+            varType: string
+            variable_selector:
+            - '1749516575682'
+            - zks
+          id: 'true'
+          logical_operator: and
+        - case_id: 4aefc05a-439d-404c-a248-a8b8a4fb07d7
+          conditions:
+          - comparison_operator: is
+            id: a2658535-935b-44ec-bd20-270ae25b7882
+            value: 公司制度
+            varType: string
+            variable_selector:
+            - '1749516575682'
+            - zks
+          id: 4aefc05a-439d-404c-a248-a8b8a4fb07d7
+          logical_operator: and
+        - case_id: 74659720-5597-4ff5-81b5-130f7c683128
+          conditions:
+          - comparison_operator: is
+            id: 1dc736fd-43c3-406d-a426-e2a28a2ff45d
+            value: 投诉调查
+            varType: string
+            variable_selector:
+            - '1749516575682'
+            - zks
+          id: 74659720-5597-4ff5-81b5-130f7c683128
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断知识库
+        type: if-else
+      height: 220
+      id: '1749544467426'
+      position:
+        x: -188.4913257458363
+        y: 115.06413805886854
+      positionAbsolute:
+        x: -188.4913257458363
+        y: 115.06413805886854
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 请正确选择知识库
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 100
+      id: '1749544519432'
+      position:
+        x: 139.08814455347186
+        y: 318.7407651657169
+      positionAbsolute:
+        x: 139.08814455347186
+        y: 318.7407651657169
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "def main(uid: str) -> dict:\n    # 穷举允许的 UID 列表（使用 set 提升查找效率）\n  \
+          \  ALLOWED_UIDS = {\n        \"uuid\", \"dlh\"\n    }\n    \n    # 判断 uid\
+          \ 是否在允许列表中\n    is_allowed = uid in ALLOWED_UIDS\n    \n    # 返回小写字符串格式的结果\n\
+          \    return {\"result\": str(is_allowed).lower()}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 获取用户身份
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - user_id
+          variable: uid
+      height: 52
+      id: '1749638573534'
+      position:
+        x: -188.4913257458363
+        y: 356.81138336726303
+      positionAbsolute:
+        x: -188.4913257458363
+        y: 356.81138336726303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 88e8714f-95f3-4d47-a4f0-0726750aa09b
+            value: 'true'
+            varType: string
+            variable_selector:
+            - '1749638573534'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 投诉报告鉴权
+        type: if-else
+      height: 124
+      id: '1749641661862'
+      position:
+        x: -188.4913257458363
+        y: 451.52747946101977
+      positionAbsolute:
+        x: -188.4913257458363
+        y: 451.52747946101977
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#sys.user_id#}}
+
+          未授权的访问，请联系系统管理员'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 120
+      id: '1749642129559'
+      position:
+        x: 139.08814455347186
+        y: 451.52747946101977
+      positionAbsolute:
+        x: 139.08814455347186
+        y: 451.52747946101977
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - r7cOdx6X2tjWnt8ffodl+xgIP6zQ+aFLHfxMng3N4Xvna2sJJBuqh9Z4oCz+1iUu
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen3-Reranker
+            provider: langgenius/ollama/ollama
+          score_threshold: null
+          top_k: 50
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: bge-m3
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 1
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 检索审计报告
+        type: knowledge-retrieval
+      height: 90
+      id: '1755230410480'
+      position:
+        x: 139.08814455347186
+        y: -50.309387359471245
+      positionAbsolute:
+        x: 139.08814455347186
+        y: -50.309387359471245
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1755508151583.result#}}'
+        desc: ''
+        selected: false
+        title: 回复检索结果
+        type: answer
+        variables: []
+      height: 103
+      id: '1755508146694'
+      position:
+        x: 548.5624824276074
+        y: 318.7407651657169
+      positionAbsolute:
+        x: 548.5624824276074
+        y: 318.7407651657169
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import re\n\ndef format_score(score: float) -> str:\n    \"\"\"格式化分数：浅蓝底\
+          \ + 深蓝字 + 加粗\"\"\"\n    return f\"\"\"<span style=\"background-color:rgb(239,244,255);color:#00008b;font-weight:bold\"\
+          >SCORE {score:.2f}</span>\"\"\"\n\n\ndef format_position(position: int)\
+          \ -> str:\n    \"\"\"格式化位置：蓝底 + 白字\"\"\"\n    return f\"\"\"<span style=\"\
+          background-color:rgb(41, 109, 255);color:#ffffff\">C-{position}</span>\"\
+          \"\"\n\n\ndef highlight_content(text: str, keywords: list) -> str:\n   \
+          \ \"\"\"高亮文本中所有匹配关键词（支持多关键词、大小写不敏感）\"\"\"\n    if not text or not keywords:\n\
+          \        return text\n    valid_kw = [re.escape(kw.strip()) for kw in keywords\
+          \ if kw.strip()]\n    if not valid_kw:\n        return text\n    pattern\
+          \ = re.compile(rf'(?i)({\"|\".join(valid_kw)})')\n    return pattern.sub(lambda\
+          \ m: f\"\"\"<span style=\"background-color:rgb(239,244,255)\">{m.group(0)}</span>\"\
+          \"\", text)\n\n\ndef convert_to_markdown(records: list, max_results: int)\
+          \ -> str:\n    \"\"\"核心转换逻辑：适配数据结构的Markdown格式化\"\"\"\n    if not records:\n\
+          \        return \"\"  # 为空时返回空字符串，不在此处显示未找到信息\n\n    md = []\n    # 限制返回的记录数量（按max_results过滤）\n\
+          \    limited_records = records[:max_results] if max_results > 0 else records\n\
+          \n    for idx, record in enumerate(limited_records, 1):\n        # 提取核心字段\n\
+          \        metadata = record.get(\"metadata\", {})\n        doc_name = metadata.get(\"\
+          document_name\", f\"文档{idx}\")\n        full_content = record.get(\"content\"\
+          , \"\")\n        child_chunks = metadata.get(\"child_chunks\", [])\n\n \
+          \       # 1. 文档标题\n        md.append(f\"## {idx}. {doc_name}\\n\")\n\n \
+          \       # 2. 子块匹配结果前置展示\n        if child_chunks:\n            md.append(\"\
+          ### 匹配结果\\n\")\n            keywords = []\n            for chunk in child_chunks:\n\
+          \                chunk_content = chunk.get(\"content\", \"\")\n        \
+          \        chunk_pos = chunk.get(\"position\", 0)\n                chunk_score\
+          \ = chunk.get(\"score\", 0.0)\n                if not chunk_content:\n \
+          \                   continue\n                highlighted_chunk = f\"\"\"\
+          <span style=\"background-color:rgb(239,244,255)\">{chunk_content}</span>\"\
+          \"\"\n                md.append(f\"{format_position(chunk_pos)} {format_score(chunk_score)}\
+          \ {highlighted_chunk}\\n\")\n                keywords.append(chunk_content)\n\
+          \            md.append(\"\\n\")\n            full_content = highlight_content(full_content,\
+          \ keywords)\n\n        # 3. 全文内容展示（折叠功能）\n        md.append(\"### 全文内容\\\
+          n\")\n        md.append('<details>\\n')\n        md.append('<summary style=\"\
+          background-color: #FFFACD; padding: 5px; border-radius: 3px;\">点击展开全文内容</summary>\\\
+          n\\n')\n        md.append(f\"{full_content}\\n\\n\")\n        md.append('</details>\\\
+          n\\n')\n\n    return \"\".join(md)\n\n\ndef process_single_arg(arg: list,\
+          \ max_results: int) -> str:\n    \"\"\"处理单个参数的校验和转换\"\"\"\n    # 校验参数是否为有效列表\n\
+          \    if arg is None:\n        return \"\"  # 空参数返回空字符串\n    \n    if not\
+          \ isinstance(arg, list):\n        return \"### 错误：输入不是列表类型\\n\\n\"\n   \
+          \ \n    # 校验列表元素格式\n    for item in arg:\n        if not isinstance(item,\
+          \ dict) or \"metadata\" not in item or \"content\" not in item:\n      \
+          \      return \"### 错误：列表元素格式错误，缺少metadata或content字段\\n\\n\"\n        if\
+          \ not isinstance(item[\"metadata\"], dict):\n            return \"### 错误：metadata必须是字典类型\\\
+          n\\n\"\n    \n    # 转换为Markdown\n    return convert_to_markdown(arg, max_results)\n\
+          \n\ndef main(arg1: list = None, arg2: list = None, arg3: list = None, max_results:\
+          \ int = None) -> dict:\n    \"\"\"\n    接收三个数据列表（实际使用时通常只传一个），转换为Markdown格式并返回\n\
+          \    \n    参数:\n    arg1, arg2, arg3 (list, 可选): 数据列表，格式为[{'metadata': {...},\
+          \ 'content': '...'}, ...]\n                                   可为None或空列表，通常只传入其中一个\n\
+          \    max_results (int, 可选): 限制返回的全文数量，无值或为空则默认3\n    \n    返回:\n    包含Markdown格式结果的字典，所有参数都无结果时返回\"\
+          未找到匹配结果\"\n    \"\"\"\n    try:\n        # 处理max_results参数：无值/为空则默认3，确保为正整数\n\
+          \        if max_results is None or max_results == \"\" or not isinstance(max_results,\
+          \ int):\n            max_results = 3\n        else:\n            max_results\
+          \ = max(int(max_results), 1)  # 确保至少返回1个\n\n        # 分别处理三个参数\n       \
+          \ result1 = process_single_arg(arg1, max_results)\n        result2 = process_single_arg(arg2,\
+          \ max_results)\n        result3 = process_single_arg(arg3, max_results)\n\
+          \n        # 合并所有非空结果\n        all_results = [result1, result2, result3]\n\
+          \        non_empty_results = [res for res in all_results if res.strip()]\n\
+          \        \n        # 检查是否所有结果都为空\n        if not non_empty_results:\n  \
+          \          full_result = \"# 检索结果\\n\\n## 未找到匹配结果\"\n        else:\n   \
+          \         full_result = f\"# 检索结果\\n\\n{''.join(non_empty_results)}\"\n\n\
+          \        return {\"result\": full_result}\n        \n    except Exception\
+          \ as e:\n        return {\"error\": f\"处理过程出错: {str(e)}\"}\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 解析结果
+        type: code
+        variables:
+        - value_selector:
+          - '1755230410480'
+          - result
+          value_type: array[object]
+          variable: arg1
+        - value_selector:
+          - '17555101731930'
+          - result
+          value_type: array[object]
+          variable: arg2
+        - value_selector:
+          - '17555101395940'
+          - result
+          value_type: array[object]
+          variable: arg3
+        - value_selector:
+          - '1749516575682'
+          - max_results
+          value_type: number
+          variable: max_results
+      height: 52
+      id: '1755508151583'
+      position:
+        x: 548.5624824276074
+        y: 92.87842900777883
+      positionAbsolute:
+        x: 548.5624824276074
+        y: 92.87842900777883
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - r7cOdx6X2tjWnt8ffodl+xgIP6zQ+aFLHfxMng3N4Xvna2sJJBuqh9Z4oCz+1iUu
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen3-Reranker
+            provider: langgenius/ollama/ollama
+          score_threshold: null
+          top_k: 50
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: bge-m3
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 1
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 检索投诉报告
+        type: knowledge-retrieval
+      height: 90
+      id: '17555101395940'
+      position:
+        x: 139.08814455347186
+        y: 201.06746061312393
+      positionAbsolute:
+        x: 139.08814455347186
+        y: 201.06746061312393
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - r7cOdx6X2tjWnt8ffodl+xgIP6zQ+aFLHfxMng3N4Xvna2sJJBuqh9Z4oCz+1iUu
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen3-Reranker
+            provider: langgenius/ollama/ollama
+          score_threshold: null
+          top_k: 50
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: bge-m3
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 1
+        query_attachment_selector: []
+        query_variable_selector:
+        - sys
+        - query
+        retrieval_mode: multiple
+        selected: false
+        title: 检索公司制度
+        type: knowledge-retrieval
+      height: 90
+      id: '17555101731930'
+      position:
+        x: 139.08814455347186
+        y: 80.11504081030239
+      positionAbsolute:
+        x: 139.08814455347186
+        y: 80.11504081030239
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 381.33712058884134
+      y: 159.34852775974323
+      zoom: 0.699953912757993
+  rag_pipeline_variables: []
