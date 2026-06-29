@@ -9,37 +9,8 @@ wget -q "https://raw.githubusercontent.com/AuditAIH/audit-tool-skills/main/Reran
 # 运行脚本
 bash startup_llama.cpp.sh
 ```
-## 直接执行二进制程序
 
-```
-# 创建目录并下载解压预编译包，-p确保目录存在
-# Create dir & download/extract precompiled package (-p ensures dir existence)
-mkdir -p llama.cpp_rerank && wget -O - https://github.com/AuditAIH/llama.cpp_rerank/releases/download/0.0.2/llama.cpp.tar.gz | tar -zxf - -C llama.cpp_rerank/
-
-# 切换工作目录到解压后的程序目录
-# Switch working directory to the extracted program directory
-cd llama.cpp_rerank
-
-# 添加CUDA v13库路径，解决程序运行依赖，如果没有安装ollama，则需要从英伟达官网自行安装cuda13
-# Add CUDA v13 lib path to resolve program runtime dependencies
-export LD_LIBRARY_PATH=/usr/local/lib/ollama/cuda_v13:$LD_LIBRARY_PATH
-
-# 测试llama-server是否可执行，-h输出帮助信息
-# Test if llama-server is executable, -h outputs help information
-./llama-server -h
-
-# 下载bge-reranker-v2-m3的FP16格式GGUF模型文件（输出的分值用import math def sigmoid(x): 去返回0到1的分值）
-# Download FP16-format GGUF model file of bge-reranker-v2-m3
-wget https://www.modelscope.cn/models/gpustack/bge-reranker-v2-m3-GGUF/resolve/master/bge-reranker-v2-m3-FP16.gguf
-# 使用Qwen3-rerank无需归一化，直接输出的就是（0，1）的分值
-wget https://www.modelscope.cn/models/ggml-org/Qwen3-Reranker-0.6B-Q8_0-GGUF/resolve/master/qwen3-reranker-0.6b-q8_0.gguf
-
-# 启动服务，加载重排序模型并绑定11436端口
-# Start server, load reranking model and bind port 11436
-./llama-server -m bge-reranker-v2-m3-FP16.gguf --port 11436 --reranking
-```
-
-## 或从源码编译
+## 或从源码手动编译
 ```
 # 1、下载编译工具
 sudo apt update && apt install -y cmake gcc g++ libcurl4-openssl-dev
