@@ -1,3 +1,6 @@
 [submodule "PaddleOCR"]
 	path = PaddleOCR
 	url = https://github.com/AuditAIH/PPOCR-VL1.6-llama.cpp
+[submodule "Rerank"]
+	path = Rerank
+	url = https://github.com/AuditAIH/rerank_for_dify
