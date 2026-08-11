@@ -1,0 +1,29 @@
+version: 0.0.1
+type: plugin
+author: codexagent
+name: codex_app_server
+label:
+  en_US: Codex App Server
+  zh_Hans: Codex App Server
+description:
+  en_US: Drive a codex app-server HTTP service to run coding agents with streaming output, thinking blocks, and synchronous conversation termination.
+  zh_Hans: 驱动 codex app-server HTTP 服务运行编码智能体，支持流式输出、思考过程展示与同步终止对话。
+icon: icon.svg
+resource:
+  memory: 268435456
+  permission: {}
+plugins:
+  tools:
+    - provider/codex_app_server.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+created_at: 2026-08-11T00:00:00+08:00
+privacy: PRIVACY.md
+verified: false

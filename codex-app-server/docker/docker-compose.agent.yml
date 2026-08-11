@@ -1,0 +1,140 @@
+services:
+  # Dify Agent local sandbox (shellctl server).
+  # Provides the sandboxed Linux shell environment used by the dify.shell layer.
+  local_sandbox:
+    # Locally built image: official 1.16.1 + chromium runtime libraries
+    # (libglib, libnss3, ... installed via `playwright install-deps chromium`).
+    # The stock image can download browsers but cannot launch them.
+    # Dockerfile: /root/auditagent/Dockerfile.local-sandbox
+    image: dify-agent-local-sandbox:1.16.1-pwdeps
+    restart: always
+    env_file:
+      - ./.env
+    network_mode: host
+    # Run the codex-app-server HTTP API (port 5040) next to shellctl (5004)
+    # in the same container. Wraps the codex app-server JSON-RPC protocol
+    # (thread/start, turn/start, turn/steer, turn/interrupt, thread/delete).
+    # Settings via CODEX_API_* env below; see
+    # /root/dify/codex-app-server/.env.example.
+    working_dir: /home/dify
+    command:
+      - /bin/bash
+      - -c
+      - /usr/local/bin/codex-app-server & exec shellctl serve --listen 0.0.0.0:5004
+    volumes:
+      - /root/auditagent/home:/home
+      # Locally rebuilt shellctl-runner: Landlock upgraded from ABI V1 to
+      # V9.BestEffort + WithRefer, so cross-directory rename/hardlink works
+      # inside the job's HOME (fixes EXDEV breaking uv pip install).
+      # Source: dify-agent-runtime/internal/landlock/landlock_linux.go
+      - /root/auditagent/bin/shellctl-runner:/usr/local/bin/shellctl-runner:ro
+      # Codex CLI full vendored layout (static musl build, no Node needed).
+      # The binary locates its companions relative to its own path, so the
+      # official layout is reproduced under /usr/local:
+      #   bin/codex, bin/codex-code-mode-host, codex-path/rg,
+      #   codex-resources/{bwrap,zsh}, codex-package.json (layout metadata).
+      - /usr/local/nodejs/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex:/usr/local/bin/codex:ro
+      - /usr/local/nodejs/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex-code-mode-host:/usr/local/bin/codex-code-mode-host:ro
+      - /usr/local/nodejs/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path:/usr/local/codex-path:ro
+      - /usr/local/nodejs/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-resources:/usr/local/codex-resources:ro
+      - /usr/local/nodejs/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-package.json:/usr/local/codex-package.json:ro
+      # codex-app-server: HTTP API over the codex app-server JSON-RPC
+      # protocol with per-conversation thread continuity (Dify
+      # conversation_id -> codex thread_id in SQLite). Static Go binary,
+      # source: /root/dify/codex-app-server.
+      # After rebuilding, recreate this service to pick up the new binary.
+      - /root/dify/codex-app-server/codex-app-server:/usr/local/bin/codex-app-server:ro
+    environment:
+      SHELLCTL_AUTH_TOKEN: ${DIFY_AGENT_SHELLCTL_AUTH_TOKEN:-}
+      # codex-app-server log verbosity: error | request | output.
+      # "output" additionally logs every app-server notification line,
+      # which is the real-time stream of what the agent is doing.
+      CODEX_API_LOG_LEVEL: ${CODEX_API_LOG_LEVEL:-request}
+      # codex-app-server settings (see /root/dify/codex-app-server/.env.example).
+      # Workspaces at /home/<app_id>/workspace/<user_id> (shared /home mount);
+      # DB and CODEX_HOME under /home/dify (already authenticated).
+      CODEX_API_WORKSPACE_BASE: /home
+      CODEX_API_DB: /home/dify/codex-app-server.db
+      CODEX_API_CODEX_HOME: /home/dify/.codex
+      CODEX_API_HOME: /home/dify
+      CODEX_API_APPROVAL_POLICY: never
+      CODEX_API_SANDBOX: dangerFullAccess
+      CODEX_API_YOLO: "true"
+      # Global uv cache shared by all agents/users (trusted environment).
+      # The path sits on the same /home bind mount so hardlinks from the
+      # cache into each workspace's venv work. It is OUTSIDE every job's
+      # HOME tree, so the Landlock sandbox must explicitly grant it RW:
+      SHELLCTL_LANDLOCK_RW_PATHS: /home/.uv-cache,/home/.playwright-browsers
+      # The shared .env sets UV_CACHE_DIR=/tmp/.uv-cache; /tmp is denied by
+      # the sandbox, so override it here. An empty value is NOT treated as
+      # unset by uv, so do not blank this.
+      UV_CACHE_DIR: /home/.uv-cache
+      # Global Playwright browser cache shared by all agents (trusted
+      # environment). Without this, each agent's `playwright install chromium`
+      # downloads its own ~400MB copy into $HOME/.cache/ms-playwright.
+      # Playwright versions browsers by build number under this path, so
+      # different playwright pip versions coexist. The dir lives outside every
+      # job's HOME, hence the Landlock RW grant above.
+      PLAYWRIGHT_BROWSERS_PATH: /home/.playwright-browsers
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5004/healthz && curl -f http://localhost:5040/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # Dify Agent backend (FastAPI run server).
+  # Hosts Agenton-composed Pydantic AI runs behind a FastAPI API.
+  agent_backend:
+    image: langgenius/dify-agent-backend:1.16.1
+    restart: always
+    env_file:
+      - ./.env
+    network_mode: host
+    depends_on:
+      local_sandbox:
+        condition: service_healthy
+    volumes:
+      # Overlay local dify-agent source changes onto the image's installed
+      # package so a container recreate does not lose them. The 1.16.1 image
+      # still ships the upstream copies of these two files.
+      - ../dify-agent/src/dify_agent/layers/shell/layer.py:/app/api/.venv/lib/python3.12/site-packages/dify_agent/layers/shell/layer.py:ro
+      - ../dify-agent/src/dify_agent/layers/execution_context/configs.py:/app/api/.venv/lib/python3.12/site-packages/dify_agent/layers/execution_context/configs.py:ro
+    environment:
+      # Redis
+      # DIFY_AGENT_REDIS_URL is empty in .env ("Leave empty to derive from REDIS_PASSWORD").
+      # Derive a localhost URL using the shared REDIS_PASSWORD.
+      DIFY_AGENT_REDIS_URL: ${DIFY_AGENT_REDIS_URL:-redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}@localhost:6379/2}
+      DIFY_AGENT_REDIS_PREFIX: ${DIFY_AGENT_REDIS_PREFIX:-dify-agent}
+
+      # Plugin daemon
+      # DIFY_AGENT_PLUGIN_DAEMON_URL is empty in .env ("Leave empty to derive").
+      # Derive from PLUGIN_DAEMON_URL and PLUGIN_DAEMON_KEY, rewritten to localhost.
+      DIFY_AGENT_PLUGIN_DAEMON_URL: ${DIFY_AGENT_PLUGIN_DAEMON_URL:-http://localhost:${PLUGIN_DAEMON_PORT:-5002}}
+      DIFY_AGENT_PLUGIN_DAEMON_API_KEY: ${DIFY_AGENT_PLUGIN_DAEMON_API_KEY:-${PLUGIN_DAEMON_KEY:?set PLUGIN_DAEMON_KEY in .env}}
+
+      # Dify API inner endpoints
+      # DIFY_AGENT_INNER_API_URL is empty in .env ("Leave empty to derive").
+      # Derive from PLUGIN_DIFY_INNER_API_URL and PLUGIN_DIFY_INNER_API_KEY, rewritten to localhost.
+      DIFY_AGENT_INNER_API_URL: ${DIFY_AGENT_INNER_API_URL:-http://localhost:5001}
+      DIFY_AGENT_INNER_API_KEY: ${DIFY_AGENT_INNER_API_KEY:-${PLUGIN_DIFY_INNER_API_KEY:?set PLUGIN_DIFY_INNER_API_KEY in .env}}
+
+      # Shell layer
+      # Override .env value (http://local_sandbox:5004) to localhost for host network mode.
+      DIFY_AGENT_SHELLCTL_ENTRYPOINT: http://localhost:5004
+      DIFY_AGENT_SHELLCTL_AUTH_TOKEN: ${DIFY_AGENT_SHELLCTL_AUTH_TOKEN:-}
+
+      # Agent Stub
+      # Override .env value (http://agent_backend:5050/agent-stub) to localhost for host network mode.
+      DIFY_AGENT_STUB_API_BASE_URL: http://localhost:5050/agent-stub
+
+      # Server secret and auth
+      # This is security-sensitive: it derives the JWE encryption key for Agent Stub bearer tokens.
+      # Replace this development default in production.
+      # Generate one with: python -c 'import secrets; print(secrets.token_urlsafe(32))'
+      DIFY_AGENT_SERVER_SECRET_KEY: ${DIFY_AGENT_SERVER_SECRET_KEY:?set DIFY_AGENT_SERVER_SECRET_KEY in .env}
+      DIFY_AGENT_API_TOKEN: ${DIFY_AGENT_API_TOKEN:?set DIFY_AGENT_API_TOKEN in .env}
+
+      # Shutdown and retention
+      DIFY_AGENT_SHUTDOWN_GRACE_SECONDS: ${DIFY_AGENT_SHUTDOWN_GRACE_SECONDS:-30}
+      DIFY_AGENT_RUN_RETENTION_SECONDS: ${DIFY_AGENT_RUN_RETENTION_SECONDS:-259200}

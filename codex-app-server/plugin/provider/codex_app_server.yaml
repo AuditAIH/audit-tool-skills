@@ -1,0 +1,41 @@
+identity:
+  author: codexagent
+  name: codex_app_server
+  label:
+    en_US: Codex App Server
+    zh_Hans: Codex App Server
+  description:
+    en_US: Drive a codex app-server HTTP service to run coding agents with streaming output and synchronous conversation control.
+    zh_Hans: 驱动 codex app-server HTTP 服务运行编码智能体，支持流式输出与同步对话控制。
+  icon: icon.svg
+credentials_for_provider:
+  server_url:
+    type: text-input
+    required: true
+    default: http://host.docker.internal:5040
+    label:
+      en_US: Server URL
+      zh_Hans: 服务地址
+    placeholder:
+      en_US: http://host.docker.internal:5040
+      zh_Hans: http://host.docker.internal:5040
+    help:
+      en_US: Base URL of the codex-app-server service. The plugin daemon runs in Docker, so use http://host.docker.internal:5040 to reach a service on the host.
+      zh_Hans: codex-app-server 服务的基础地址。插件运行在 Docker 中，访问宿主机上的服务请用 http://host.docker.internal:5040。
+  api_key:
+    type: secret-input
+    required: false
+    label:
+      en_US: API Key
+      zh_Hans: API Key
+    placeholder:
+      en_US: Bearer token (optional)
+      zh_Hans: Bearer 令牌（可选）
+    help:
+      en_US: Required only when the codex-app-server service sets CODEX_API_AUTH_TOKEN.
+      zh_Hans: 仅当 codex-app-server 服务设置了 CODEX_API_AUTH_TOKEN 时需要填写。
+tools:
+  - tools/codex_chat.yaml
+extra:
+  python:
+    source: provider/codex_app_server.py

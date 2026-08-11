@@ -1,0 +1,75 @@
+identity:
+  name: codex_chat
+  author: codexagent
+  label:
+    en_US: Codex Chat
+    zh_Hans: Codex 对话
+description:
+  human:
+    en_US: Send a conversation to the codex-app-server service and stream the agent's reply (with thinking) back to the user.
+    zh_Hans: 将对话发送给 codex-app-server 服务，并把智能体的回答（含思考过程）流式返回给用户。
+  llm: Send a user query together with conversation_id and user_id to a codex-app-server HTTP service, which drives the codex app-server with full conversation context, and streams the agent's reply back. Reasoning and tool actions are shown in a collapsible thinking block.
+parameters:
+  - name: query
+    type: string
+    required: true
+    default: "{{#sys.query#}}"
+    label:
+      en_US: Query
+      zh_Hans: 任务内容
+    human_description:
+      en_US: The task or message for codex to execute. Multiline text is supported. Defaults to sys.query.
+      zh_Hans: 交给 codex 执行的任务或消息，支持多行文本。默认取 sys.query。
+    llm_description: The task or message for codex to execute. Multiline text is supported.
+    form: form
+  - name: conversation_id
+    type: string
+    required: true
+    default: "{{#sys.conversation_id#}}"
+    label:
+      en_US: Conversation ID
+      zh_Hans: 对话 ID
+    human_description:
+      en_US: Conversation ID. Calls with the same ID resume the same codex thread, so the agent keeps full context across turns. Defaults to sys.conversation_id.
+      zh_Hans: 对话 ID，相同 ID 的调用会续接同一个 codex 线程，保持完整上下文。默认取 sys.conversation_id。
+    llm_description: Conversation ID used to resume the codex thread. Reuse the same ID across turns of one conversation.
+    form: form
+  - name: app_id
+    type: string
+    required: true
+    default: "{{#sys.app_id#}}"
+    label:
+      en_US: App ID
+      zh_Hans: 应用 ID
+    human_description:
+      en_US: App ID. codex works in the workspace directory <workspace_base>/<app_id>/workspace/<user_id>. Defaults to sys.app_id.
+      zh_Hans: 应用 ID，codex 的工作目录为 <workspace_base>/<app_id>/workspace/<user_id>。默认取 sys.app_id。
+    llm_description: App ID whose workspace codex runs in. Reuse the same ID for all calls from one app.
+    form: form
+  - name: user_id
+    type: string
+    required: true
+    default: "{{#sys.user_id#}}"
+    label:
+      en_US: User ID
+      zh_Hans: 用户 ID
+    human_description:
+      en_US: User ID. codex works in the workspace directory <workspace_base>/<app_id>/workspace/<user_id>. Defaults to sys.user_id.
+      zh_Hans: 用户 ID，codex 的工作目录为 <workspace_base>/<app_id>/workspace/<user_id>。默认取 sys.user_id。
+    llm_description: User ID whose workspace codex runs in.
+    form: form
+  - name: stream
+    type: boolean
+    required: false
+    default: true
+    label:
+      en_US: Stream Output
+      zh_Hans: 流式输出
+    human_description:
+      en_US: "Enabled (default): stream the agent's reply and reasoning to the user as they are produced. Disabled: wait for the run to finish and return the full reply at once."
+      zh_Hans: "开启（默认）：智能体的回答和思考过程产生时即流式输出给用户；关闭：等待执行结束后一次性返回完整回答。"
+    llm_description: Whether to stream the reply and reasoning as they are produced (default) or return the full reply at once.
+    form: form
+extra:
+  python:
+    source: tools/codex_chat.py

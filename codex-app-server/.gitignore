@@ -1,0 +1,15 @@
+# runtime workspace (per-conversation working directories)
+/home/
+
+# compiled binary (rebuild with: go build -o codex-app-server .)
+/codex-app-server
+
+# sqlite databases
+*.db
+
+# dify plugin build artifacts
+*.difypkg
+
+# real environment files (use .env.example as template)
+.env
+docker/.env
