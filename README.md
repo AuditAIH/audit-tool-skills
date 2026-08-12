@@ -1,3 +1,5 @@
+
+
 # audit-tool-skills
 
 审计技能合集，面向 Claude Code / OpenClaw 等 Agent 的技能（Skill）仓库。包含两大技能：
@@ -130,7 +132,7 @@ cp -rf plugins/audit-tool-skills/skills/audit_tools/data-masking ~/.openclaw/ski
   - "解析这个 PDF 发票和 Excel 台账" → 触发 `document-parsing`
   - "审一下这批报销单，看看有没有违规" → 触发 `internal-audit`
 - **手动调用**：按你的 OpenClaw 版本支持的斜杠命令方式调用对应技能名。
-- **运行脚本**：工具类技能（data-masking / document-parsing）的 `scripts/` 下有可直接执行的 Python 脚本，详见各自 `SKILL.md` 的"脚本说明"。
+- **运行脚本**：工具类技能（data-masking / document-parsing）的 `scripts/` 下有可直接执行的 Python 脚本。使用前请先安装依赖（`pip install -r scripts/requirements.txt`），详见各自 `SKILL.md` 的"脚本说明"。
 
 ### 4. 后续更新
 
